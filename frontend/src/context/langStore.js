@@ -1,0 +1,123 @@
+import { create } from 'zustand'
+
+const translations = {
+  en: {
+    appName: 'MahaJanSeva',
+    tagline: 'Your Government Services Partner',
+    home: 'Home', services: 'Services', myApplications: 'My Applications',
+    wallet: 'Wallet', profile: 'Profile', logout: 'Logout',
+    dashboard: 'Dashboard', ledger: 'Ledger', rechargeWallet: 'Recharge Wallet',
+    login: 'Login', register: 'Register', submit: 'Submit',
+    cancel: 'Cancel', back: 'Back', next: 'Next',
+    serviceCharge: 'Service Charge', apply: 'Apply Now',
+    status: 'Status', tokenNo: 'Token No', date: 'Date',
+    amount: 'Amount', balance: 'Balance', debit: 'Debit', credit: 'Credit',
+    pending: 'Pending', completed: 'Completed', rejected: 'Rejected',
+    uploadDocument: 'Upload Document', addSignature: 'Add Signature',
+    walletBalance: 'Wallet Balance', recharge: 'Recharge',
+    chat: 'Chat Support', askAI: 'Ask AI',
+    name: 'Full Name', email: 'Email', phone: 'Mobile', password: 'Password',
+    address: 'Address', city: 'City', district: 'District', pincode: 'Pincode',
+    required: 'Required', optional: 'Optional',
+    viewAll: 'View All', search: 'Search', filter: 'Filter',
+    adminPanel: 'Admin Panel', users: 'Users', applications: 'Applications',
+    transactions: 'Transactions', settings: 'Settings',
+    insufficientBalance: 'Insufficient wallet balance',
+    applicationSubmitted: 'Application submitted successfully!',
+    loginRequired: 'Please login to continue',
+    welcomeBack: 'Welcome back',
+    newUser: 'New user? Register here',
+    alreadyUser: 'Already have an account? Login',
+    forgotPassword: 'Forgot Password?',
+    category: 'Category', price: 'Price', documents: 'Documents',
+    processingDays: 'Processing Days', onCall: 'On Call',
+    payViaUPI: 'Pay via UPI', payViaRazorpay: 'Pay via Card/UPI',
+    scanQR: 'Scan QR Code', enterUTR: 'Enter UTR/Reference No',
+    help: 'Help', contactUs: 'Contact Us', faq: 'FAQ',
+    language: 'Language'
+  },
+  mr: {
+    appName: 'महाजन सेवा',
+    tagline: 'आपला सरकारी सेवा भागीदार',
+    home: 'मुख्यपृष्ठ', services: 'सेवा', myApplications: 'माझे अर्ज',
+    wallet: 'वॉलेट', profile: 'प्रोफाइल', logout: 'बाहेर पडा',
+    dashboard: 'डॅशबोर्ड', ledger: 'लेजर', rechargeWallet: 'वॉलेट रिचार्ज करा',
+    login: 'लॉगिन', register: 'नोंदणी', submit: 'सादर करा',
+    cancel: 'रद्द करा', back: 'मागे', next: 'पुढे',
+    serviceCharge: 'सेवा शुल्क', apply: 'अर्ज करा',
+    status: 'स्थिती', tokenNo: 'टोकन क्र', date: 'तारीख',
+    amount: 'रक्कम', balance: 'शिल्लक', debit: 'डेबिट', credit: 'क्रेडिट',
+    pending: 'प्रलंबित', completed: 'पूर्ण', rejected: 'नाकारले',
+    uploadDocument: 'कागदपत्र अपलोड करा', addSignature: 'स्वाक्षरी जोडा',
+    walletBalance: 'वॉलेट शिल्लक', recharge: 'रिचार्ज',
+    chat: 'चॅट सपोर्ट', askAI: 'AI ला विचारा',
+    name: 'पूर्ण नाव', email: 'ईमेल', phone: 'मोबाईल', password: 'पासवर्ड',
+    address: 'पत्ता', city: 'शहर', district: 'जिल्हा', pincode: 'पिनकोड',
+    required: 'आवश्यक', optional: 'पर्यायी',
+    viewAll: 'सर्व पहा', search: 'शोधा', filter: 'फिल्टर',
+    adminPanel: 'अॅडमिन पॅनल', users: 'वापरकर्ते', applications: 'अर्ज',
+    transactions: 'व्यवहार', settings: 'सेटिंग्ज',
+    insufficientBalance: 'वॉलेटमध्ये पुरेशी शिल्लक नाही',
+    applicationSubmitted: 'अर्ज यशस्वीरित्या सादर केला!',
+    loginRequired: 'सुरू ठेवण्यासाठी लॉगिन करा',
+    welcomeBack: 'पुनः स्वागत आहे',
+    newUser: 'नवीन वापरकर्ता? येथे नोंदणी करा',
+    alreadyUser: 'आधीच खाते आहे? लॉगिन करा',
+    forgotPassword: 'पासवर्ड विसरलात?',
+    category: 'श्रेणी', price: 'किंमत', documents: 'कागदपत्रे',
+    processingDays: 'प्रक्रिया दिवस', onCall: 'कॉल वर',
+    payViaUPI: 'UPI द्वारे पैसे द्या', payViaRazorpay: 'कार्ड/UPI द्वारे',
+    scanQR: 'QR कोड स्कॅन करा', enterUTR: 'UTR/संदर्भ क्रमांक टाका',
+    help: 'मदत', contactUs: 'संपर्क करा', faq: 'FAQ',
+    language: 'भाषा'
+  },
+  hi: {
+    appName: 'महाजन सेवा',
+    tagline: 'आपका सरकारी सेवा भागीदार',
+    home: 'होम', services: 'सेवाएं', myApplications: 'मेरे आवेदन',
+    wallet: 'वॉलेट', profile: 'प्रोफ़ाइल', logout: 'लॉगआउट',
+    dashboard: 'डैशबोर्ड', ledger: 'लेजर', rechargeWallet: 'वॉलेट रिचार्ज करें',
+    login: 'लॉगिन', register: 'पंजीकरण', submit: 'जमा करें',
+    cancel: 'रद्द करें', back: 'वापस', next: 'आगे',
+    serviceCharge: 'सेवा शुल्क', apply: 'आवेदन करें',
+    status: 'स्थिति', tokenNo: 'टोकन नंबर', date: 'दिनांक',
+    amount: 'राशि', balance: 'बैलेंस', debit: 'डेबिट', credit: 'क्रेडिट',
+    pending: 'लंबित', completed: 'पूर्ण', rejected: 'अस्वीकृत',
+    uploadDocument: 'दस्तावेज़ अपलोड करें', addSignature: 'हस्ताक्षर जोड़ें',
+    walletBalance: 'वॉलेट बैलेंस', recharge: 'रिचार्ज',
+    chat: 'चैट सपोर्ट', askAI: 'AI से पूछें',
+    name: 'पूरा नाम', email: 'ईमेल', phone: 'मोबाइल', password: 'पासवर्ड',
+    address: 'पता', city: 'शहर', district: 'जिला', pincode: 'पिनकोड',
+    required: 'आवश्यक', optional: 'वैकल्पिक',
+    viewAll: 'सभी देखें', search: 'खोजें', filter: 'फ़िल्टर',
+    adminPanel: 'एडमिन पैनल', users: 'उपयोगकर्ता', applications: 'आवेदन',
+    transactions: 'लेनदेन', settings: 'सेटिंग्स',
+    insufficientBalance: 'वॉलेट में पर्याप्त बैलेंस नहीं',
+    applicationSubmitted: 'आवेदन सफलतापूर्वक जमा हुआ!',
+    loginRequired: 'जारी रखने के लिए लॉगिन करें',
+    welcomeBack: 'वापसी पर स्वागत',
+    newUser: 'नए उपयोगकर्ता? यहां पंजीकरण करें',
+    alreadyUser: 'पहले से खाता है? लॉगिन करें',
+    forgotPassword: 'पासवर्ड भूल गए?',
+    category: 'श्रेणी', price: 'मूल्य', documents: 'दस्तावेज़',
+    processingDays: 'प्रसंस्करण दिन', onCall: 'कॉल पर',
+    payViaUPI: 'UPI से भुगतान', payViaRazorpay: 'कार्ड/UPI से',
+    scanQR: 'QR कोड स्कैन करें', enterUTR: 'UTR/संदर्भ नंबर दर्ज करें',
+    help: 'सहायता', contactUs: 'संपर्क करें', faq: 'FAQ',
+    language: 'भाषा'
+  }
+};
+
+const useLangStore = create((set, get) => ({
+  lang: localStorage.getItem('mjs_lang') || 'mr',
+  setLang: (lang) => {
+    localStorage.setItem('mjs_lang', lang);
+    set({ lang });
+  },
+  t: (key) => {
+    const { lang } = get();
+    return translations[lang]?.[key] || translations.en[key] || key;
+  }
+}));
+
+export default useLangStore;
