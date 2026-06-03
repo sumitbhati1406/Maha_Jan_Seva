@@ -1,15 +1,11 @@
-{
-  "name": "mahajanseva",
+﻿{
+  "name": "maha-jan-seva",
   "version": "1.0.0",
-  "description": "MahaJanSeva Government Services Portal - MERN Stack",
   "scripts": {
-    "install:all": "npm install --prefix backend && npm install --prefix frontend",
-    "seed": "npm run seed --prefix backend",
-    "dev:backend": "npm run dev --prefix backend",
-    "dev:frontend": "npm run dev --prefix frontend",
-    "build:frontend": "npm run build --prefix frontend"
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "node backend/server.js"
   },
-  "keywords": ["mern", "government", "services", "maharashtra", "gst", "pan"],
-  "author": "MahaJanSeva",
-  "license": "MIT"
+  "engines": {
+    "node": "18.x"
+  }
 }
