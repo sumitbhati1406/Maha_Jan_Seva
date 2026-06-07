@@ -109,8 +109,8 @@ EMAIL_USER=your@gmail.com
 EMAIL_PASS=your_app_password
 
 # Admin Credentials (created by seeder)
-ADMIN_EMAIL=admin@mahajanseva.com
-ADMIN_PASSWORD=Admin@123456
+ADMIN_EMAIL=admins@mahajanseva.commm
+ADMIN_PASSWORD=Admins@1234567890
 ADMIN_NAME=Super Admin
 
 # Anthropic API (for AI chatbot)
