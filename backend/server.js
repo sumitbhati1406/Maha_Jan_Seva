@@ -76,6 +76,27 @@ app.get("/api/health", (req, res) => {
   });
 });
 
+// ---------------- ROOT ROUTE - API INFO ----------------
+app.get("/", (req, res) => {
+  res.json({
+    success: true,
+    message: "MahaJanSeva API is running",
+    version: "1.0.0",
+    timestamp: new Date(),
+    endpoints: {
+      health: "/api/health",
+      auth: "/api/auth",
+      services: "/api/services",
+      applications: "/api/applications",
+      wallet: "/api/wallet",
+      chat: "/api/chat",
+      admin: "/api/admin",
+      payments: "/api/payments",
+      uploads: "/api/uploads"
+    }
+  });
+});
+
 // ---------------- SOCKET CHAT ----------------
 const chatRooms = new Map();
 
@@ -116,13 +137,6 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("Client disconnected:", socket.id);
   });
-});
-
-// ---------------- FRONTEND SERVE (REACT BUILD) ----------------
-app.use(express.static(path.join(__dirname, "frontend/build")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend/build", "index.html"));
 });
 
 // ---------------- MONGODB + SERVER ----------------
