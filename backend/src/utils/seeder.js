@@ -1,8 +1,10 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const User = require('../models/User');
-const Service = require('../models/Service');
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
+import User from '../models/User.js';
+import Service from '../models/Service.js';
+
+dotenv.config();
 
 const services = [
   { name: { en: 'GST Zero(Nil) Monthly Return', mr: 'GST झिरो फायलिंग', hi: 'GST जीरो फाइलिंग' }, category: 'GST', price: 250, serviceCode: 'GST001', isNew: true, order: 1, description: { en: 'File GST nil return for zero sales month', mr: 'शून्य विक्री महिन्यासाठी GST निल रिटर्न', hi: 'शून्य बिक्री महीने के लिए GST निल रिटर्न' }, requiredDocuments: [{ name: 'GST Username & Password', isRequired: true }, { name: 'Previous Month Return', isRequired: false }] },
@@ -65,9 +67,12 @@ async function seedDatabase() {
   }
 }
 
-// Run directly: node seeder.js
-if (require.main === module) {
+// Check if running directly
+import { fileURLToPath } from 'url';
+const isMainModule = process.argv[1] === fileURLToPath(import.meta.url);
+
+if (isMainModule) {
   seedDatabase().then(() => process.exit(0)).catch(() => process.exit(1));
 }
 
-module.exports = { seedDatabase };
+export { seedDatabase };
