@@ -44,7 +44,9 @@ app.use('/api/chat', require('./src/routes/chat'));
 app.use('/api/admin', require('./src/routes/admin'));
 app.use('/api/wallet', require('./src/routes/wallet'));
 app.use('/api/uploads', require('./src/routes/uploads'));
-
+app.get("/", (req, res) => {
+  res.send("🚀 Server is running successfully");
+});
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'MahaJanSeva API running', timestamp: new Date() });
