@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const applicationSchema = new mongoose.Schema({
   tokenNo: { type: String, unique: true },
@@ -46,4 +46,4 @@ applicationSchema.pre('save', async function(next) {
   next();
 });
 
-module.exports = mongoose.model('Application', applicationSchema);
+export default mongoose.model('Application', applicationSchema);
