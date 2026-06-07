@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import Transaction from '../models/Transaction.js';
+import User from '../models/User.js';
+import { protect, adminOnly } from '../middleware/auth.js';
+
 const router = express.Router();
-const Transaction = require('../models/Transaction');
-const User = require('../models/User');
-const { protect, adminOnly } = require('../middleware/auth');
 
 // @GET /api/wallet/balance
 router.get('/balance', protect, async (req, res) => {
