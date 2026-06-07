@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import User from '../models/User.js';
+import { generateToken, protect } from '../middleware/auth.js';
+
 const router = express.Router();
-const User = require('../models/User');
-const { generateToken, protect } = require('../middleware/auth');
 
 // @POST /api/auth/register
 router.post('/register', async (req, res) => {
