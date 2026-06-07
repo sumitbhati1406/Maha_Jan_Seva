@@ -1,11 +1,12 @@
-const express = require('express');
+import express from 'express';
+import mongoose from 'mongoose';
+import Application from '../models/Application.js';
+import Service from '../models/Service.js';
+import Transaction from '../models/Transaction.js';
+import User from '../models/User.js';
+import { protect, adminOnly } from '../middleware/auth.js';
+
 const router = express.Router();
-const mongoose = require('mongoose');
-const Application = require('../models/Application');
-const Service = require('../models/Service');
-const Transaction = require('../models/Transaction');
-const User = require('../models/User');
-const { protect, adminOnly } = require('../middleware/auth');
 
 // @GET /api/applications/my
 router.get('/my', protect, async (req, res) => {
