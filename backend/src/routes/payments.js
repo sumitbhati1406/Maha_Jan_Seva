@@ -1,10 +1,11 @@
-const express = require('express');
+import express from 'express';
+import crypto from 'crypto';
+import Razorpay from 'razorpay';
+import User from '../models/User.js';
+import Transaction from '../models/Transaction.js';
+import { protect } from '../middleware/auth.js';
+
 const router = express.Router();
-const crypto = require('crypto');
-const Razorpay = require('razorpay');
-const User = require('../models/User');
-const Transaction = require('../models/Transaction');
-const { protect } = require('../middleware/auth');
 
 let razorpay;
 try {
@@ -73,7 +74,7 @@ router.post('/verify', protect, async (req, res) => {
   }
 });
 
-// @POST /api/payments/upi-verify - Manual UPI verification (admin confirms)
+// @POST /api/payments/upi-initiate - Manual UPI verification
 router.post('/upi-initiate', protect, async (req, res) => {
   try {
     const { amount, mobile } = req.body;
