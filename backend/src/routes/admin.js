@@ -1,10 +1,11 @@
-const express = require('express');
+import express from 'express';
+import User from '../models/User.js';
+import Application from '../models/Application.js';
+import Transaction from '../models/Transaction.js';
+import Service from '../models/Service.js';
+import { protect, adminOnly } from '../middleware/auth.js';
+
 const router = express.Router();
-const User = require('../models/User');
-const Application = require('../models/Application');
-const Transaction = require('../models/Transaction');
-const Service = require('../models/Service');
-const { protect, adminOnly } = require('../middleware/auth');
 
 // All admin routes require admin auth
 router.use(protect, adminOnly);
