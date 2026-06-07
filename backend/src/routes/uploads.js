@@ -1,7 +1,16 @@
-const express = require('express');
+import express from 'express';
+import multer from 'multer';
+import { protect } from '../middleware/auth.js';
+import { v2 as cloudinary } from 'cloudinary';
+
 const router = express.Router();
-const multer = require('multer');
-const { protect } = require('../middleware/auth');
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 // Use memory storage for Cloudinary
 const storage = multer.memoryStorage();
@@ -15,23 +24,15 @@ const upload = multer({
   }
 });
 
-let cloudinary;
-try {
-  cloudinary = require('cloudinary').v2;
-  cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET
-  });
-} catch (e) {
-  console.log('Cloudinary not configured');
-}
-
 // @POST /api/uploads/document
 router.post('/document', protect, upload.single('file'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ success: false, message: 'No file uploaded' });
-    if (!cloudinary) return res.status(400).json({ success: false, message: 'Upload service not configured' });
+    
+    // Check if Cloudinary is configured
+    if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+      return res.status(400).json({ success: false, message: 'Upload service not configured' });
+    }
 
     const b64 = Buffer.from(req.file.buffer).toString('base64');
     const dataUri = `data:${req.file.mimetype};base64,${b64}`;
@@ -52,7 +53,11 @@ router.post('/document', protect, upload.single('file'), async (req, res) => {
 router.post('/signature', protect, upload.single('signature'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ success: false, message: 'No signature uploaded' });
-    if (!cloudinary) return res.status(400).json({ success: false, message: 'Upload service not configured' });
+    
+    // Check if Cloudinary is configured
+    if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+      return res.status(400).json({ success: false, message: 'Upload service not configured' });
+    }
 
     const b64 = Buffer.from(req.file.buffer).toString('base64');
     const dataUri = `data:${req.file.mimetype};base64,${b64}`;
