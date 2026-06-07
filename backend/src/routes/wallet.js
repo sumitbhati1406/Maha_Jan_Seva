@@ -53,4 +53,4 @@ router.post('/admin-credit', protect, adminOnly, async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
