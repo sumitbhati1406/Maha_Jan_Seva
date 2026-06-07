@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import Service from '../models/Service.js';
+import { protect, adminOnly } from '../middleware/auth.js';
+
 const router = express.Router();
-const Service = require('../models/Service');
-const { protect, adminOnly } = require('../middleware/auth');
 
 // @GET /api/services - Get all active services
 router.get('/', async (req, res) => {
