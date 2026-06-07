@@ -68,4 +68,4 @@ router.post('/signature', protect, upload.single('signature'), async (req, res) 
   }
 });
 
-module.exports = router;
+export default router;
