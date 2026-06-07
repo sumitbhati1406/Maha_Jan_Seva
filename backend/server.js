@@ -1,12 +1,30 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const helmet = require("helmet");
-const morgan = require("morgan");
-const http = require("http");
-const path = require("path");
-const { Server } = require("socket.io");
-require("dotenv").config();
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import helmet from "helmet";
+import morgan from "morgan";
+import http from "http";
+import path from "path";
+import { Server } from "socket.io";
+import dotenv from "dotenv";
+import { fileURLToPath } from "url";
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Import routes
+import authRoutes from "./src/routes/auth.js";
+import userRoutes from "./src/routes/users.js";
+import serviceRoutes from "./src/routes/services.js";
+import applicationRoutes from "./src/routes/applications.js";
+import paymentRoutes from "./src/routes/payments.js";
+import chatRoutes from "./src/routes/chat.js";
+import adminRoutes from "./src/routes/admin.js";
+import walletRoutes from "./src/routes/wallet.js";
+import uploadRoutes from "./src/routes/uploads.js";
+
+dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
@@ -39,15 +57,15 @@ app.use((req, res, next) => {
 });
 
 // ---------------- API ROUTES ----------------
-app.use("/api/auth", require("./src/routes/auth"));
-app.use("/api/users", require("./src/routes/users"));
-app.use("/api/services", require("./src/routes/services"));
-app.use("/api/applications", require("./src/routes/applications"));
-app.use("/api/payments", require("./src/routes/payments"));
-app.use("/api/chat", require("./src/routes/chat"));
-app.use("/api/admin", require("./src/routes/admin"));
-app.use("/api/wallet", require("./src/routes/wallet"));
-app.use("/api/uploads", require("./src/routes/uploads"));
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/services", serviceRoutes);
+app.use("/api/applications", applicationRoutes);
+app.use("/api/payments", paymentRoutes);
+app.use("/api/chat", chatRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/wallet", walletRoutes);
+app.use("/api/uploads", uploadRoutes);
 
 // ---------------- HEALTH CHECK ----------------
 app.get("/api/health", (req, res) => {
@@ -101,8 +119,6 @@ io.on("connection", (socket) => {
 });
 
 // ---------------- FRONTEND SERVE (REACT BUILD) ----------------
-const __dirname = path.resolve();
-
 app.use(express.static(path.join(__dirname, "frontend/build")));
 
 app.get("*", (req, res) => {
@@ -129,4 +145,4 @@ mongoose
     process.exit(1);
   });
 
-module.exports = { app, io };
+export { app, io };
