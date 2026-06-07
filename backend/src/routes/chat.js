@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import Chat from '../models/Chat.js';
+import { protect, adminOnly } from '../middleware/auth.js';
+import { v4 as uuidv4 } from 'uuid';
+
 const router = express.Router();
-const Chat = require('../models/Chat');
-const { protect, adminOnly } = require('../middleware/auth');
-const { v4: uuidv4 } = require('uuid');
 
 // @POST /api/chat/start - Start or get chat room
 router.post('/start', protect, async (req, res) => {
